@@ -1,5 +1,14 @@
 #!/bin/sh
 
+load_weight()
+{
+	if [ -e $1/weight ]; then
+		cat $1/weight
+	else
+		echo 1
+	fi
+}
+
 contest=$(realpath $1)
 result=$(realpath $2)
 
@@ -12,7 +21,9 @@ for coder in $contest/code/*; do
 		task_name=$(basename $task)
 		cnt=0
 		for i in $task/data/*; do
-			cnt=$(($cnt + 1))
+			echo $i
+			weight=$(load_weight $i)
+			cnt=$(($cnt + $weight))
 		done
 		score=0
 		if [ -e $coder/$task_name ]; then
@@ -39,7 +50,8 @@ for coder in $contest/code/*; do
 						fi
 					done
 					if [ "$err" = "no" ]; then
-						cnt_ac=$(($cnt_ac + 1))
+						weight=$(load_weight $subtask)
+						cnt_ac=$(($cnt_ac + $weight))
 					fi
 				done
 				if [ $cnt_ac -gt $score ]; then
