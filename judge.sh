@@ -38,7 +38,7 @@ for coder in $contest/code/*; do
 				$contest/compile.sh $src
 				if [ "$?" != "0" ]; then
 						echo "$src: CE" >> $result/$coder_name/log
-						break
+						continue;
 				fi
 				cnt_ac=0
 				for subtask in $task/data/*; do
