@@ -67,6 +67,11 @@ chmod 666 $tmpdir/out.txt
 # set up stdout
 cmd="$cmd -p StandardOutput=file:$tmpdir/out.txt"
 
+# hack for system("pause")
+install -vdm755 $tmpdir/bin
+ln -sv /bin/true $tmpdir/bin/pause
+cmd="$cmd -p Environment=PATH=$tmpdir/bin:$PATH"
+
 # set up program
 install -vm755 $prog $tmpdir/exe
 cmd="$cmd $tmpdir/exe"
