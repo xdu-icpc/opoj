@@ -11,7 +11,7 @@ for coder in $contest/code/*; do
 	for task in $contest/task/*; do
 		task_name=$(basename $task)
 		cnt=0
-		for i in $task/*; do
+		for i in $task/data/*; do
 			cnt=$(($cnt + 1))
 		done
 		score=0
