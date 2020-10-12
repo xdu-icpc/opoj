@@ -90,7 +90,13 @@ if ! head -n2 $tmpdir/judge_log | tail -n1 | grep success > /dev/null; then
 	bail 0
 fi
 
-if diff -Z $ans $tmpdir/out.txt; then
+if [ "x$spj" != x ]; then
+	diff_cmd="$spj $in"
+else
+	diff_cmd="diff -Z"
+fi
+
+if $diff_cmd $tmpdir/out.txt $ans; then
 	echo AC > $out
 	bail 0
 fi

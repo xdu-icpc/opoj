@@ -19,6 +19,13 @@ for coder in $contest/code/*; do
 	mkdir $result/$coder_name -pv
 	for task in $contest/task/*; do
 		task_name=$(basename $task)
+
+		if [ -e $task/spj ]; then
+			export spj=$task/spj
+		else
+			export spj=
+		fi
+
 		cnt=0
 		for i in $task/data/*; do
 			echo $i
